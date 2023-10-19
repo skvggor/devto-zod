@@ -10,6 +10,26 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
+model Vendedor {
+  id String @id @default(uuid())
+  nome String
+  cpf String @unique
+  senha String
+  dataCriacao DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+  vendas Venda[]
+}
+
+model Cliente {
+  id String @id @default(uuid())
+  nome String
+  cpf String @unique
+  senha String
+  dataCriacao DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+  compras Venda[]
+}
+
 model Produto {
   id String @id @default(uuid())
   nome String
@@ -20,6 +40,7 @@ model Produto {
   dataAtualizacao DateTime @updatedAt
   categoria Categoria @relation(fields: [categoriaId], references: [id])
   categoriaId String
+  vendas Venda[]
 }
 
 model Categoria {
@@ -28,5 +49,16 @@ model Categoria {
   descricao String
   dataCriacao DateTime @default(now())
   dataAtualizacao DateTime @updatedAt
+  produtos Produto[]
+}
+
+model Venda {
+  id String @id @default(uuid())
+  data DateTime @default(now())
+  valorTotal Decimal
+  vendedor Vendedor @relation(fields: [vendedorId], references: [id])
+  vendedorId String
+  cliente Cliente @relation(fields: [clienteId], references: [id])
+  clienteId String
   produtos Produto[]
 }

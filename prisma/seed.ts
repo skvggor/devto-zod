@@ -68,7 +68,103 @@ async function main() {
                 }
             }
         }
-    });git req
+    });
+
+    const clienteJoao = await prisma.cliente.upsert({
+        where: {
+            id: '1',
+            nome: 'João',
+        },
+        update: {},
+        create: {
+            id: uuidv4(),
+            nome: 'João da Silva',
+            cpf: '12345678900',
+            senha: '123456',
+            compras: {
+                create: {
+                    id: uuidv4(),
+                    produtos: {
+                        connect: {
+                            id: produtoBanana.id,
+                        }
+                    }
+                }
+            }
+        },
+    });
+
+    const clienteMaria = await prisma.cliente.upsert({
+        where: {
+            id: '2',
+            nome: 'Maria',
+        },
+        update: {},
+        create: {
+            id: uuidv4(),
+            nome: 'Maria da Silva',
+            cpf: '12345678901',
+            senha: '123456',
+            compras: {
+                create: {
+                    id: uuidv4(),
+                    produtos: {
+                        connect: {
+                            id: produtoBiscoito.id,
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const vendedorJose = await prisma.vendedor.upsert({
+        where: {
+            id: '1',
+            nome: 'José',
+        },
+        update: {},
+        create: {
+            id: uuidv4(),
+            nome: 'José da Silva',
+            cpf: '12345678902',
+            senha: '123456',
+            vendas: {
+                create: {
+                    id: uuidv4(),
+                    produtos: {
+                        connect: {
+                            id: produtoBanana.id,
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const vendedorAna = await prisma.vendedor.upsert({
+        where: {
+            id: '2',
+            nome: 'Ana',
+        },
+        update: {},
+        create: {
+            id: uuidv4(),
+            nome: 'Ana da Silva',
+            cpf: '12345678903',
+            senha: '123456',
+            vendas: {
+                create: {
+                    id: uuidv4(),
+                    produtos: {
+                        connect: {
+                            id: produtoBiscoito.id,
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 main()
